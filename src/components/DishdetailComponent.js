@@ -1,21 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap';
 
-class Dishdetail extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-     
-        };
-    }
-
-    renderComments(comments)  {
+    function RenderComments({comments})  {
         if (comments == null || comments.length === 0)
             return (
                 <div></div>
             );
-        const renderedComments = this.props.comments.map((comment) => {
+        const renderedComments = comments.map((comment) => {
             return (
                 <li>
                     <p>{comment.comment}</p>
@@ -33,8 +24,9 @@ class Dishdetail extends Component {
             </div>
         );
     }
+    
 
-    renderDish(dish) {
+    function RenderDish({dish}) {
         return (
         <Card>
             <CardImg width="100%" src = {dish.image} alt = {dish.name} />
@@ -46,15 +38,17 @@ class Dishdetail extends Component {
         );
     }
 
-    render() {
-        if (this.props.dish != null) {
+    const Dishdetail = (props) => {
+        if (props.dish != null) {
             return (
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderDish(this.props.dish)}
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderComments(this.props.comments)}
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12 col-md-5 m-1">
+                            <RenderDish dish={props.dish}/>
+                        </div>
+                        <div className="col-12 col-md-5 m-1">
+                            <RenderComments comments={props.comments}/>
+                        </div>
                     </div>
                 </div>
             );
@@ -62,6 +56,6 @@ class Dishdetail extends Component {
         
         else return (<div></div>);
     }
-}
+
 
 export default Dishdetail;
