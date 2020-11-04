@@ -44,7 +44,7 @@ class Contact extends Component {
     handleBlur = (field) => (evt) => {
         this.setState({
             touched: {...this.state.touched, [field]: true}
-        })   
+        });
     }
 
     validate(firstname, lastname, telnum, email) {
