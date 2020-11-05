@@ -1,6 +1,8 @@
 import React from 'react';
-import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, BreadcrumbItem, Breadcrumb} from 'reactstrap';
+import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle,
+    BreadcrumbItem, Breadcrumb, Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import CommentForm from './CommentForm';
 
     function RenderComments({comments})  {
         if (comments == null || comments.length === 0)
@@ -34,7 +36,7 @@ import {Link} from 'react-router-dom';
             <CardBody>
                 <CardTitle>{dish.name}</CardTitle>
                 <CardText>{dish.description}</CardText>
-            </CardBody> 
+            </CardBody>
         </Card>
         );
     }
@@ -59,6 +61,7 @@ import {Link} from 'react-router-dom';
                         </div>
                         <div className="col-12 col-md-5 m-1">
                             <RenderComments comments={props.comments}/>
+                            <CommentForm/>
                         </div>
                     </div>
                 </div>
