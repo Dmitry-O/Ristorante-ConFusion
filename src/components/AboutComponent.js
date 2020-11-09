@@ -1,9 +1,32 @@
 import React from 'react';
 import {Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import {baseUrl} from '../shared/baseUrl';
+import {Loading} from './LoadingComponent';
+import {FadeTransform, Fade, Stagger} from 'react-animation-components';
 
 function About(props) {
-    const leaders = props.leaders.map((leader) => {
+    if (props.leaders.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <Loading/>
+                </div>
+            </div>
+        );
+    }
+    
+    else if (props.leaders.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.leaders.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+
+    const leaders = props.leaders.leaders.map((leader) => {
         return (
             <div className="col-12 pt-5" key={leader.id}>
                 <RenderLeader leader={leader}/>
@@ -13,16 +36,20 @@ function About(props) {
 
     function RenderLeader({leader}) {
         return (
-            <Media tag="li" className="pb-5">
-                <Media className="col-4 col-md-2">
-                    <Media object src={leader.image} alt={leader.name}/>
-                </Media>
-                <Media body className="col-8 col-md-10">
-                    <Media heading>{leader.name}</Media>
-                    {leader.designation}
-                    {leader.description}
-                </Media>
-            </Media>
+            <Stagger in>
+                <Fade in>
+                    <Media tag="li" className="pb-5">
+                        <Media className="col-4 col-md-2">
+                            <Media object src={baseUrl + leader.image} alt={leader.name}/>
+                        </Media>
+                        <Media body className="col-8 col-md-10">
+                            <Media heading>{leader.name}</Media>
+                            {leader.designation}
+                            {leader.description}
+                        </Media>
+                    </Media>
+                </Fade>
+            </Stagger>
         );
     }
 
